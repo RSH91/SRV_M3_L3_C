@@ -30,6 +30,7 @@ router.get('/:pictureName', requiresAuth(), async function(req, res, next) {
   let my_file = await s3.getObject({
     Bucket: process.env.CYCLIC_BUCKET_NAME,
     Key: "public/" + req.params.pictureName,
+
   }).promise();
   const picture = {
       src: Buffer.from(my_file.Body).toString('base64'),
@@ -49,5 +50,7 @@ router.post('/', requiresAuth(), async function(req, res, next) {
   }).promise()
   res.end();
 });
+
+
 
 module.exports = router;
